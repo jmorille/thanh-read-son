@@ -1,0 +1,24 @@
+{
+  "name": "poc-json",
+  "version": "1.0.0",
+  "description": "Poc Thanh",
+  "main": "src/index.js",
+  "scripts": {
+    "run": "node src/server.js",
+    "dev": "nodemon -w src src/app/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmorille/thanh-read-son.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmorille/thanh-read-son/issues"
+  },
+  "homepage": "https://github.com/jmorille/thanh-read-son#readme",
+  "dependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

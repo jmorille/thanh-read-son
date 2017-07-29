@@ -1,0 +1,97 @@
+
+[{
+  "accessTokens" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy/accessTokens",
+    "id" : "accessTokens"
+  },
+  "accountLinks" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy/accountLinks",
+    "offset" : 0,
+    "limit" : 25,
+    "size" : 0,
+    "items" : [ ]
+  },
+  "apiKeys" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy/apiKeys",
+    "id" : "apiKeys"
+  },
+  "applications" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy/applications",
+    "id" : "applications"
+  },
+  "createdAt" : "2017-01-30T10:59:20.534Z",
+  "customData" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy/customData",
+    "id" : "customData",
+    "createdAt" : "2017-01-30T10:59:20.534Z",
+    "modifiedAt" : "2017-01-30T11:02:18.687Z",
+    "companies" : [ "standard" ],
+    "pom_prod_roles" : [ "Regular" ],
+    "psyco_prod_roles" : [ "Editor" ],
+    "tags_prod_roles" : [ "Editor" ]
+  },
+  "directory" : {
+    "href" : "https://enterprise.stormpath.io/v1/directories/2dM9EmBLzgya23sRaBcHWw",
+    "id" : "2dM9EmBLzgya23sRaBcHWw"
+  },
+  "email" : "dcivera@purch.com",
+  "emailVerificationStatus" : "UNVERIFIED",
+  "emailVerificationToken" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/emailVerificationTokens/1BIjUeOh3yMAwSN8hHVYws",
+    "id" : "1BIjUeOh3yMAwSN8hHVYws"
+  },
+  "externalId" : null,
+  "factors" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy/factors",
+    "offset" : 0,
+    "limit" : 25,
+    "size" : 0,
+    "items" : [ ]
+  },
+  "fullName" : "David Civera",
+  "givenName" : "David",
+  "groupMemberships" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy/groupMemberships",
+    "id" : "groupMemberships"
+  },
+  "groups" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy/groups",
+    "id" : "groups"
+  },
+  "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy",
+  "id" : "1BINsNvmIQ083qGSqSUOLy",
+  "linkedAccounts" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy/linkedAccounts",
+    "id" : "linkedAccounts"
+  },
+  "middleName" : null,
+  "modifiedAt" : "2017-01-30T10:59:36.293Z",
+  "password" : "$stormpath1$cn2fqqc7DL9eC1fVA270wQ==$D9/Cct8H63dkWuR/bOE4BxS3FbWmCVW0DjdK51ofV0c=",
+  "passwordModifiedAt" : null,
+  "phones" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy/phones",
+    "offset" : 0,
+    "limit" : 25,
+    "size" : 0,
+    "items" : [ ]
+  },
+  "providerData" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy/providerData",
+    "id" : "providerData",
+    "createdAt" : "2017-01-30T10:59:20.534Z",
+    "modifiedAt" : "2017-01-30T10:59:36.293Z",
+    "providerId" : "stormpath"
+  },
+  "refreshTokens" : {
+    "href" : "https://enterprise.stormpath.io/v1/accounts/1BINsNvmIQ083qGSqSUOLy/refreshTokens",
+    "id" : "refreshTokens"
+  },
+  "status" : "ENABLED",
+  "surname" : "Civera",
+  "tenant" : {
+    "href" : "https://enterprise.stormpath.io/v1/tenants/Xe9gIpjEYeORQr8RVuWwK",
+    "id" : "Xe9gIpjEYeORQr8RVuWwK"
+  },
+  "username" : "dcivera@purch.com"
+}
+]
