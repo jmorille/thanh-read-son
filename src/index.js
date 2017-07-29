@@ -12,7 +12,7 @@ console.log('dataDirectory', dataDirectory);
 
 // console.log('data', data);
 data.map(line => {
-    console.log('line : ', line);
-    console.log('customData : ', data.customData);
+    // console.log('line : ', Object.keys(line));
+    console.log('customData : ', line.customData);
 });
 
