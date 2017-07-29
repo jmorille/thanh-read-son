@@ -10,3 +10,6 @@ tags_prod_roles,Editor,Editor2
 pom_prod_roles,Regular
 psyco_prod_roles,Editor
 tags_prod_roles,Editor,Editor2
+pom_prod_roles,Regular
+psyco_prod_roles,Editor
+tags_prod_roles,Editor,Editor2
