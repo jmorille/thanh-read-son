@@ -28,7 +28,7 @@
     "companies" : [ "standard" ],
     "pom_prod_roles" : [ "Regular" ],
     "psyco_prod_roles" : [ "Editor" ],
-    "tags_prod_roles" : [ "Editor" ]
+    "tags_prod_roles" : [ "Editor", "Editor2" ]
   },
   "directory" : {
     "href" : "https://enterprise.stormpath.io/v1/directories/2dM9EmBLzgya23sRaBcHWw",
