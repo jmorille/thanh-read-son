@@ -19,7 +19,7 @@ function readJsonFile(data) {
     const identity = data.fullName + ';' + data.username;
     // console.log('customData : ', line.customData);
     const cstData = data.customData;
-    console.log('line : ', Object.keys(cstData));
+    // console.log('line : ', Object.keys(cstData));
     const cstKeys = Object.keys(cstData);
     const cstLines = cstKeys
         .filter(key => !filterCstKeys.some(elt => elt === key))
