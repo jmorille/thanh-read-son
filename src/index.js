@@ -31,6 +31,7 @@ function readJsonFile(data) {
             return line;
         });
         // Ne sert à rien dans ton cas, juste renvoie les nouvelles valeur dans la variable results        return cstLines;
+        return cstLines;
     });
 }
 
