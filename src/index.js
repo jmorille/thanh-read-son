@@ -21,18 +21,16 @@ function readJsonFile(data) {
         // console.log('customData : ', line.customData);
         const cstData = line.customData;
         console.log('line : ', Object.keys(cstData));
-        const line1 = 'pom_prod_roles,' + cstData.pom_prod_roles.join(',');
-        const line2 = 'psyco_prod_roles,' + cstData.psyco_prod_roles.join(',');
-        const line3 = 'tags_prod_roles,' + cstData.tags_prod_roles.join(',');
-        logger.write(line1 + '\n');
-        logger.write(line2 + '\n');
-        logger.write(line3 + '\n');
-        // Ne sert à rien dans ton cas, juste renvoie les nouvelles valeur dans la variable results
-        return {
-            pom: cstData.pom_prod_roles.join(','),
-            psyco: +cstData.psyco_prod_roles.join(','),
-            tags: cstData.tags_prod_roles.join(',')
-        };
+        const cstKeys = Object.keys(cstData);
+        const cstLines = cstKeys.map(key => {
+            const cstValue = cstData[key];
+            const cstLine = key + ';' + (Array.isArray(cstValue)?cstValue.join(','): cstValue);
+            return cstLine;
+        }).map(line => {
+            logger.write(line + '\n');
+            return line;
+        });
+        // Ne sert à rien dans ton cas, juste renvoie les nouvelles valeur dans la variable results        return cstLines;
     });
 }
 
