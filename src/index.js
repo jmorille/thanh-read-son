@@ -28,9 +28,32 @@ function readJsonFile(data) {
             const cstLine = key + ';' + (Array.isArray(cstValue) ? cstValue.join(',') : cstValue);
             return cstLine;
         }).join(';');
-    logger.write(identity + ';' + cstLines + '\r\n');
+    return identity + ';' + cstLines ;
+}
+
+// Read Json File
+function readJsonFileAsJsonFormat(data) {
+    // console.log('line : ', Object.keys(line));
+    console.log('* Read  : ', data.fullName, '(', data.email, ')');
+    // console.log('line : ', Object.keys(cstData));
+
+    // Clone
+    const cstData = JSON.parse(JSON.stringify(data.customData));
+    filterCstKeys.forEach(elt => {
+        delete cstData[elt];
+    });
+    const result = {
+        fullName: data.fullName,
+        email: data.username,
+        app_metadata: {
+            authorisation: []
+        },
+        user_metadata : cstData
+    };
+
     // Ne sert à rien dans ton cas, juste renvoie les nouvelles valeur dans la variable results        return cstLines;
-    return cstLines;
+    // return JSON.stringify(result); // Une line
+    return JSON.stringify(result, null, ' ');  // Formater
 }
 
 // List directory file
@@ -42,8 +65,8 @@ dataFiles.forEach(file => {
     // Open File
     const data = JSON.parse(fs.readFileSync(path.join(dataDirectory, file), 'utf8'));
     // Parse File
-    const results = readJsonFile(data);
-    console.log(results);
+    const result = readJsonFileAsJsonFormat(data);
+    logger.write( result + '\r\n');
 });
 
 
