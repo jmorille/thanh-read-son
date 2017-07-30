@@ -7,6 +7,7 @@ const logDirectory = path.join(__dirname, '..', 'output');
 
 
 // Write File
+
 const logger = fs.createWriteStream(path.join(logDirectory, 'myFile.txt'), {
     flags: 'a' // 'a' means appending (old data will be preserved)
 });
@@ -16,8 +17,10 @@ function readJsonFile(data) {
     return data.map(line => {
         // console.log('line : ', Object.keys(line));
         console.log('* Read  : ', line.fullName, '(', line.email, ')');
+
         // console.log('customData : ', line.customData);
         const cstData = line.customData;
+        console.log('line : ', Object.keys(cstData));
         const line1 = 'pom_prod_roles,' + cstData.pom_prod_roles.join(',');
         const line2 = 'psyco_prod_roles,' + cstData.psyco_prod_roles.join(',');
         const line3 = 'tags_prod_roles,' + cstData.tags_prod_roles.join(',');
