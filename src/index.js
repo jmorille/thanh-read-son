@@ -4,11 +4,12 @@ const path = require('path');
 //Config
 const dataDirectory = path.join(__dirname, '..', 'data');
 const logDirectory = path.join(__dirname, '..', 'output');
-
+const jsonFormated = false;
 
 // Write File
 
-const logger = fs.createWriteStream(path.join(logDirectory, 'dataFile.txt'));
+const txtFile = fs.createWriteStream(path.join(logDirectory, 'dataFile.txt'));
+const jsonFile = fs.createWriteStream(path.join(logDirectory, 'dataFile.json'));
 // Supprime les colones suivantes
 const filterCstKeys = ['id', 'href', 'createdAt', 'modifiedAt'];
 
@@ -52,8 +53,11 @@ function readJsonFileAsJsonFormat(data) {
     };
 
     // Ne sert à rien dans ton cas, juste renvoie les nouvelles valeur dans la variable results        return cstLines;
-    // return JSON.stringify(result); // Une line
-    return JSON.stringify(result, null, ' ');  // Formater
+    if(jsonFormated) {
+        return JSON.stringify(result, null, ' ');  // Formater
+    } else {
+        return JSON.stringify(result); // Une line
+    }
 }
 
 // List directory file
@@ -65,8 +69,10 @@ dataFiles.forEach(file => {
     // Open File
     const data = JSON.parse(fs.readFileSync(path.join(dataDirectory, file), 'utf8'));
     // Parse File
-    const result = readJsonFileAsJsonFormat(data);
-    logger.write( result + '\r\n');
+    const resultTxt = readJsonFile(data);
+    const resultJson = readJsonFileAsJsonFormat(data);
+    jsonFile.write( resultJson + '\r\n');
+    txtFile.write( resultTxt + '\r\n');
 });
 
 
