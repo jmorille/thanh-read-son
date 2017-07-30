@@ -11,8 +11,7 @@ const logDirectory = path.join(__dirname, '..', 'output');
 const logger = fs.createWriteStream(path.join(logDirectory, 'myFile.txt'));
 
 // Read Json File
-function readJsonFile(data) {
-    return data.map(line => {
+function readJsonFile(line) {
         // console.log('line : ', Object.keys(line));
         console.log('* Read  : ', line.fullName, '(', line.email, ')');
         const identity = line.fullName + ';' + line.username;
@@ -31,7 +30,6 @@ function readJsonFile(data) {
         logger.write(identity + ';' + cstLines + '\n');
         // Ne sert à rien dans ton cas, juste renvoie les nouvelles valeur dans la variable results        return cstLines;
         return cstLines;
-    });
 }
 
 // List directory file

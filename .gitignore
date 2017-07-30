@@ -7,6 +7,9 @@
 /log
 *.log
 
+# data
+data
+
 # Node
 bower_components
 node_modules
