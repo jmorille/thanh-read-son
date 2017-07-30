@@ -28,7 +28,7 @@ function readJsonFile(data) {
             const cstLine = key + ';' + (Array.isArray(cstValue) ? cstValue.join(',') : cstValue);
             return cstLine;
         }).join(';');
-    logger.write(identity + ';' + cstLines + '\n');
+    logger.write(identity + ';' + cstLines + '\r\n');
     // Ne sert à rien dans ton cas, juste renvoie les nouvelles valeur dans la variable results        return cstLines;
     return cstLines;
 }
