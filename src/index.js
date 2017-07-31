@@ -76,8 +76,7 @@ dataFiles.forEach(file => {
     const resultJson = readJsonFileAsJsonFormat(data);
     Object.keys(resultJson).forEach(key => {
         const file =  getOrCreateWriters(key);
-        const lineStr = stringifyResult(resultJson[key])+ ',';
-        file.write( lineStr + '\r\n');
+        file.write( stringifyResult(resultJson[key])+ ',' + '\r\n');
         stats[key] = (stats[key]|0) +  1;
     });
     console.log('------ Statistiques ------- ');
