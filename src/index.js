@@ -13,24 +13,7 @@ const jsonFormated = true;
 // Supprime les colones suivantes
 const filterCstKeys = ['id', 'href', 'createdAt', 'modifiedAt'];
 
-// Read Json File
-function readJsonFile(data) {
-    // console.log('line : ', Object.keys(line));
-    console.log('* Read  : ', data.fullName, '(', data.email, ')');
-    const identity = data.fullName + ';' + data.username;
-    // console.log('customData : ', line.customData);
-    const cstData = data.customData;
-    // console.log('line : ', Object.keys(cstData));
-    const cstKeys = Object.keys(cstData);
-    const cstLines = cstKeys
-        .filter(key => !filterCstKeys.some(elt => elt === key))
-        .map(key => {
-            const cstValue = cstData[key];
-            const cstLine = key + ';' + (Array.isArray(cstValue) ? cstValue.join(',') : cstValue);
-            return cstLine;
-        }).join(';');
-    return identity + ';' + cstLines;
-}
+
 
 // Read Json File
 function readJsonFileAsJsonFormat(data) {
@@ -38,11 +21,7 @@ function readJsonFileAsJsonFormat(data) {
     console.log('* Read  : ', data.fullName, '(', data.email, ')');
     // console.log('line : ', Object.keys(cstData));
 
-    // Clone
-    // const cstData = JSON.parse(JSON.stringify(data.customData));
-    // filterCstKeys.forEach(elt => {
-    //     delete cstData[elt];
-    // });
+    // Template result
     const result = {
         email: data.username,
         username: data.username.slice(0,data.username.indexOf('@') ),
