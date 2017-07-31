@@ -71,7 +71,8 @@ function getOrCreateWriters(key) {
 function closeWriters() {
     Object.keys(fileWriters).forEach(key => {
         let writer = fileWriters[key];
-        writer.write('\r\n' + ']' + '\r\n')
+        writer.write('\r\n' + ']' + '\r\n');
+        writer.close();
     });
 }
 
