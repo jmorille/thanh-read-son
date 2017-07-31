@@ -9,7 +9,6 @@ const jsonFormated = true;
 // Write File
 
 
-
 // Read Json File
 function readJsonFileAsJsonFormat(data) {
     // console.log('line : ', Object.keys(line));
@@ -19,7 +18,7 @@ function readJsonFileAsJsonFormat(data) {
     // Template result
     const result = {
         email: data.username,
-        username: data.username.slice(0,data.username.indexOf('@') ),
+        username: data.username.slice(0, data.username.indexOf('@')),
         surname: data.surname,
         app_metadata: {
             authorisation: {
@@ -30,15 +29,15 @@ function readJsonFileAsJsonFormat(data) {
 
     // const keys = ['pom', 'psyco', 'tags'];
     const keys = Object.keys(data.customData)
-        .filter(key => key.indexOf('_roles')>1 )
-        .map(key => key.slice(0, key.indexOf('_roles') ));
+        .filter(key => key.indexOf('_roles') > 1)
+        .map(key => key.slice(0, key.indexOf('_roles')));
 
     const objResult = keys.reduce((acc, key) => {
         const dataKey = key + '_roles';
         if (data.customData[dataKey]) {
             const obj = JSON.parse(JSON.stringify(result));
             obj.app_metadata.authorisation.roles = data.customData[dataKey];
-            acc[key] =  obj ;
+            acc[key] = obj;
         }
         return acc;
     }, {});
@@ -56,23 +55,23 @@ function stringifyResult(result) {
 // List directory file
 const dataFiles = fs.readdirSync(dataDirectory);
 const fileWriters = {};
-const stats  = {};
+const stats = {};
 function getOrCreateWriters(key) {
     let writer = fileWriters[key];
     if (!writer) {
-        writer = fs.createWriteStream(path.join(logDirectory, key+'File.json'));
+        writer = fs.createWriteStream(path.join(logDirectory, key + 'File.json'));
         fileWriters[key] = writer;
-        writer.write(  '[' + '\r\n');
+        writer.write('[' + '\r\n');
     } else {
-        writer.write(  ',' + '\r\n');
+        writer.write(',' + '\r\n');
     }
     return writer;
 }
 
 function closeWriters() {
-    Object.keys(fileWriters).forEach(key=> {
+    Object.keys(fileWriters).forEach(key => {
         let writer = fileWriters[key];
-        writer.write('\r\n' +']' + '\r\n')
+        writer.write('\r\n' + ']' + '\r\n')
     });
 }
 
@@ -85,10 +84,10 @@ dataFiles.forEach(file => {
     // Parse File
     const resultJson = readJsonFileAsJsonFormat(data);
     Object.keys(resultJson).forEach(key => {
-        const file =  getOrCreateWriters(key);
-        const line  =  stringifyResult(resultJson[key]) ;
-        file.write( line );
-        stats[key] = (stats[key]|0) +  1;
+        const file = getOrCreateWriters(key);
+        const line = stringifyResult(resultJson[key]);
+        file.write(line);
+        stats[key] = (stats[key] | 0) + 1;
     });
     console.log('------ Statistiques ------- ');
     console.log(JSON.stringify(stats, null, ' '))
