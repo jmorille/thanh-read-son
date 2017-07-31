@@ -8,11 +8,6 @@ const jsonFormated = true;
 
 // Write File
 
-// const txtFile = fs.createWriteStream(path.join(logDirectory, 'dataFile.txt'));
-
-// Supprime les colones suivantes
-const filterCstKeys = ['id', 'href', 'createdAt', 'modifiedAt'];
-
 
 
 // Read Json File
@@ -61,7 +56,7 @@ function stringifyResult(result) {
 // List directory file
 const dataFiles = fs.readdirSync(dataDirectory);
 const fileWriters = {};
-
+const stats  = {};
 function getOrCreateWriters(key) {
     let writer = fileWriters[key];
     if (!writer) {
@@ -81,7 +76,10 @@ dataFiles.forEach(file => {
     const resultJson = readJsonFileAsJsonFormat(data);
     Object.keys(resultJson).forEach(key => {
         getOrCreateWriters(key).write(stringifyResult(resultJson[key]) + '\r\n');
+        stats[key] = (stats[key]|0) +  1;
     });
+    console.log('------ Statistiques ------- ');
+    console.log(JSON.stringify(stats, null, ' '))
 });
 
 
