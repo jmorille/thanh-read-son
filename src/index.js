@@ -4,12 +4,12 @@ const path = require('path');
 //Config
 const dataDirectory = path.join(__dirname, '..', 'data');
 const logDirectory = path.join(__dirname, '..', 'output');
-const jsonFormated = false;
+const jsonFormated = true;
 
 // Write File
 
-const txtFile = fs.createWriteStream(path.join(logDirectory, 'dataFile.txt'));
-const jsonFile = fs.createWriteStream(path.join(logDirectory, 'dataFile.json'));
+// const txtFile = fs.createWriteStream(path.join(logDirectory, 'dataFile.txt'));
+
 // Supprime les colones suivantes
 const filterCstKeys = ['id', 'href', 'createdAt', 'modifiedAt'];
 
@@ -29,7 +29,7 @@ function readJsonFile(data) {
             const cstLine = key + ';' + (Array.isArray(cstValue) ? cstValue.join(',') : cstValue);
             return cstLine;
         }).join(';');
-    return identity + ';' + cstLines ;
+    return identity + ';' + cstLines;
 }
 
 // Read Json File
@@ -39,21 +39,36 @@ function readJsonFileAsJsonFormat(data) {
     // console.log('line : ', Object.keys(cstData));
 
     // Clone
-    const cstData = JSON.parse(JSON.stringify(data.customData));
-    filterCstKeys.forEach(elt => {
-        delete cstData[elt];
-    });
+    // const cstData = JSON.parse(JSON.stringify(data.customData));
+    // filterCstKeys.forEach(elt => {
+    //     delete cstData[elt];
+    // });
     const result = {
-        fullName: data.fullName,
         email: data.username,
+        username: data.username.slice(0,data.username.indexOf('@') ),
+        surname: data.surname,
         app_metadata: {
-            authorisation: []
-        },
-        user_metadata : cstData
+            authorisation: {
+                roles: []
+            }
+        }
     };
 
-    // Ne sert à rien dans ton cas, juste renvoie les nouvelles valeur dans la variable results        return cstLines;
-    if(jsonFormated) {
+    const keys = ['pom', 'psyco', 'tags'];
+    const objResult = keys.reduce((acc, key) => {
+        const dataKey = key + '_dev_roles';
+        if (data.customData[dataKey]) {
+            const obj = JSON.parse(JSON.stringify(result));
+            obj.app_metadata.authorisation.roles = data.customData[dataKey];
+            acc[key] =  obj ;
+        }
+        return acc;
+    }, {});
+    return objResult;
+}
+
+function stringifyResult(result) {
+    if (jsonFormated) {
         return JSON.stringify(result, null, ' ');  // Formater
     } else {
         return JSON.stringify(result); // Une line
@@ -63,16 +78,31 @@ function readJsonFileAsJsonFormat(data) {
 // List directory file
 const dataFiles = fs.readdirSync(dataDirectory);
 
+// pom: fs.createWriteStream(path.join(logDirectory, 'pomFile.json')),
+//     psyco: fs.createWriteStream(path.join(logDirectory, 'psycoFile.json')),
+//     tags: fs.createWriteStream(path.join(logDirectory, 'tagsFile.json'))
+const fileWriters = {};
+
+function getOrCreateWriters(key) {
+    let writer = fileWriters[key];
+    if (!writer) {
+        writer = fs.createWriteStream(path.join(logDirectory, key+'File.json'));
+        fileWriters[key] = writer;
+    }
+    return writer;
+}
+
+
 // Read All File in the directory Data
 dataFiles.forEach(file => {
     console.log('------- ', file, '-----------');
     // Open File
     const data = JSON.parse(fs.readFileSync(path.join(dataDirectory, file), 'utf8'));
     // Parse File
-    const resultTxt = readJsonFile(data);
     const resultJson = readJsonFileAsJsonFormat(data);
-    jsonFile.write( resultJson + '\r\n');
-    txtFile.write( resultTxt + '\r\n');
+    Object.keys(resultJson).forEach(key => {
+        getOrCreateWriters(key).write(stringifyResult(resultJson[key]) + '\r\n');
+    });
 });
 
 
