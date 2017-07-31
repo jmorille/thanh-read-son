@@ -60,10 +60,6 @@ function stringifyResult(result) {
 
 // List directory file
 const dataFiles = fs.readdirSync(dataDirectory);
-
-// pom: fs.createWriteStream(path.join(logDirectory, 'pomFile.json')),
-//     psyco: fs.createWriteStream(path.join(logDirectory, 'psycoFile.json')),
-//     tags: fs.createWriteStream(path.join(logDirectory, 'tagsFile.json'))
 const fileWriters = {};
 
 function getOrCreateWriters(key) {
