@@ -4,7 +4,7 @@ const path = require('path');
 //Config
 const dataDirectory = path.join(__dirname, '..', 'data');
 const logDirectory = path.join(__dirname, '..', 'output');
-const jsonFormated = false;
+const jsonFormated = true;
 
 // Write File
 
@@ -63,6 +63,8 @@ function getOrCreateWriters(key) {
         writer = fs.createWriteStream(path.join(logDirectory, key+'File.json'));
         fileWriters[key] = writer;
         writer.write(  '[' + '\r\n');
+    } else {
+        writer.write(  ',' + '\r\n');
     }
     return writer;
 }
@@ -70,7 +72,7 @@ function getOrCreateWriters(key) {
 function closeWriters() {
     Object.keys(fileWriters).forEach(key=> {
         let writer = fileWriters[key];
-        writer.write(']' + '\r\n')
+        writer.write('\r\n' +']' + '\r\n')
     });
 }
 
@@ -84,8 +86,8 @@ dataFiles.forEach(file => {
     const resultJson = readJsonFileAsJsonFormat(data);
     Object.keys(resultJson).forEach(key => {
         const file =  getOrCreateWriters(key);
-        const line  =  stringifyResult(resultJson[key])+ ',';
-        file.write( line + '\r\n');
+        const line  =  stringifyResult(resultJson[key]) ;
+        file.write( line );
         stats[key] = (stats[key]|0) +  1;
     });
     console.log('------ Statistiques ------- ');
