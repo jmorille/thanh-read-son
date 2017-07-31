@@ -4,7 +4,7 @@ const path = require('path');
 //Config
 const dataDirectory = path.join(__dirname, '..', 'data');
 const logDirectory = path.join(__dirname, '..', 'output');
-const jsonFormated = true;
+const jsonFormated = false;
 
 // Write File
 
@@ -75,7 +75,9 @@ dataFiles.forEach(file => {
     // Parse File
     const resultJson = readJsonFileAsJsonFormat(data);
     Object.keys(resultJson).forEach(key => {
-        getOrCreateWriters(key).write(stringifyResult(resultJson[key]) + '\r\n');
+        const file =  getOrCreateWriters(key);
+        const lineStr = stringifyResult(resultJson[key])+ ',';
+        file.write( lineStr + '\r\n');
         stats[key] = (stats[key]|0) +  1;
     });
     console.log('------ Statistiques ------- ');
