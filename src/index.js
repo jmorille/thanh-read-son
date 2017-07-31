@@ -67,6 +67,13 @@ function getOrCreateWriters(key) {
     return writer;
 }
 
+function closeWriters() {
+    Object.keys(fileWriters).forEach(key=> {
+        let writer = fileWriters[key];
+        writer.write(']' + '\r\n')
+    });
+}
+
 
 // Read All File in the directory Data
 dataFiles.forEach(file => {
@@ -85,4 +92,5 @@ dataFiles.forEach(file => {
     console.log(JSON.stringify(stats, null, ' '))
 });
 
+closeWriters();
 
