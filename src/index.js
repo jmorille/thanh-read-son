@@ -54,9 +54,13 @@ function readJsonFileAsJsonFormat(data) {
         }
     };
 
-    const keys = ['pom', 'psyco', 'tags'];
+    // const keys = ['pom', 'psyco', 'tags'];
+    const keys = Object.keys(data.customData)
+        .filter(key => key.indexOf('_roles')>1 )
+        .map(key => key.slice(0, key.indexOf('_roles') ));
+
     const objResult = keys.reduce((acc, key) => {
-        const dataKey = key + '_dev_roles';
+        const dataKey = key + '_roles';
         if (data.customData[dataKey]) {
             const obj = JSON.parse(JSON.stringify(result));
             obj.app_metadata.authorisation.roles = data.customData[dataKey];
