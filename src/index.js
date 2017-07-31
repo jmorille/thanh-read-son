@@ -62,6 +62,7 @@ function getOrCreateWriters(key) {
     if (!writer) {
         writer = fs.createWriteStream(path.join(logDirectory, key+'File.json'));
         fileWriters[key] = writer;
+        writer.write(  '[' + '\r\n');
     }
     return writer;
 }
@@ -76,7 +77,8 @@ dataFiles.forEach(file => {
     const resultJson = readJsonFileAsJsonFormat(data);
     Object.keys(resultJson).forEach(key => {
         const file =  getOrCreateWriters(key);
-        file.write( stringifyResult(resultJson[key])+ ',' + '\r\n');
+        const line  =  stringifyResult(resultJson[key])+ ',';
+        file.write( line + '\r\n');
         stats[key] = (stats[key]|0) +  1;
     });
     console.log('------ Statistiques ------- ');
