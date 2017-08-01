@@ -4,7 +4,7 @@ const path = require('path');
 //Config
 const dataDirectory = path.join(__dirname, '..', 'data');
 const logDirectory = path.join(__dirname, '..', 'output');
-const jsonFormated = true;
+const jsonFormated = false;
 
 // Write File
 
@@ -72,14 +72,13 @@ function closeWriters() {
     Object.keys(fileWriters).forEach(key => {
         let writer = fileWriters[key];
         writer.write('\r\n' + ']' + '\r\n');
-        writer.close();
+        // BUG writer.close();
     });
 }
 
 
 // Read All File in the directory Data
 dataFiles.forEach(file => {
-    console.log('------- ', file, '-----------');
     // Open File
     const data = JSON.parse(fs.readFileSync(path.join(dataDirectory, file), 'utf8'));
     // Parse File
