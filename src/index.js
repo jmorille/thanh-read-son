@@ -72,7 +72,7 @@ function closeWriters() {
     Object.keys(fileWriters).forEach(key => {
         let writer = fileWriters[key];
         writer.write('\r\n' + ']' + '\r\n');
-        // BUG writer.close();
+        writer.end();
     });
 }
 
