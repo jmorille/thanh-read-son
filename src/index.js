@@ -4,7 +4,7 @@ const path = require('path');
 //Config
 const dataDirectory = path.join(__dirname, '..', 'data');
 const logDirectory = path.join(__dirname, '..', 'output');
-const jsonFormated = false;
+const jsonFormated = true;
 
 // Write File
 
@@ -18,12 +18,17 @@ function readJsonFileAsJsonFormat(data) {
     // Template result
     const result = {
         email: data.username,
-        username: data.username.slice(0, data.username.indexOf('@')),
-        surname: data.surname,
+        nickname: data.username.slice(0, data.username.indexOf('@')),
+        name: data.surname,
         app_metadata: {
             authorisation: {
                 roles: []
             }
+        },
+	
+	user_metadata: {
+            companies: {
+        //        data.companies         },
         }
     };
 
@@ -37,6 +42,7 @@ function readJsonFileAsJsonFormat(data) {
         if (data.customData[dataKey]) {
             const obj = JSON.parse(JSON.stringify(result));
             obj.app_metadata.authorisation.roles = data.customData[dataKey];
+	    // obj.user_metadata.companies = data.customData[dataKey];
             acc[key] = obj;
         }
         return acc;
@@ -59,7 +65,7 @@ const stats = {};
 function getOrCreateWriters(key) {
     let writer = fileWriters[key];
     if (!writer) {
-        writer = fs.createWriteStream(path.join(logDirectory, key + 'File.json'));
+        writer = fs.createWriteStream(path.join(logDirectory, key + '.json'));
         fileWriters[key] = writer;
         writer.write('[' + '\r\n');
     } else {
