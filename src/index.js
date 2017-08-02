@@ -1,10 +1,10 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const path = require('path');
 
 //Config
 const dataDirectory = path.join(__dirname, '..', 'data');
 const logDirectory = path.join(__dirname, '..', 'output');
-const jsonFormated = false;
+const jsonFormated = true;
 
 // Write File
 
@@ -82,7 +82,6 @@ function closeWriters() {
 
 const filterCstKeys = ['id', 'href', 'createdAt', 'modifiedAt'];
 const dataFile = fs.createWriteStream(path.join(logDirectory, 'dataFile.txt'));
-const dataJsonFile = fs.createWriteStream(path.join(logDirectory, 'dataFile.json'));
 
 
 // Read Json File
@@ -101,32 +100,11 @@ function readJsonFile(data) {
             const cstLine = key + ';' + (Array.isArray(cstValue) ? cstValue.join(',') : cstValue);
             return cstLine;
         }).join(';');
-    return identity + ';' + cstLines ;
-}
-
-function readFileAsDataJson(data) {
-    // console.log('line : ', Object.keys(line));
-    console.log('* Read  : ', data.fullName, '(', data.email, ')');
-    // console.log('line : ', Object.keys(cstData));
-
-    // Clone
-    const cstData = JSON.parse(JSON.stringify(data.customData));
-    filterCstKeys.forEach(elt => {
-        delete cstData[elt];
-    });
-    const result = {
-        fullName: data.fullName,
-        email: data.username,
-        app_metadata: {
-            authorisation: []
-        },
-        user_metadata : cstData
-    };
-
+    // logger.write(identity + ';' + cstLines + '\n');
     // Ne sert à rien dans ton cas, juste renvoie les nouvelles valeur dans la variable results        return cstLines;
-    // return JSON.stringify(result); // Une line
-    return JSON.stringify(result, null, ' ');  // Formater
+    return identity+';'+cstLines;
 }
+
 
 
 
@@ -142,10 +120,8 @@ dataFiles.forEach(file => {
         file.write(line);
         stats[key] = (stats[key] | 0) + 1;
     });
-    const resultDataTxt = readJsonFile(data);
-    const resultDataJson = readFileAsDataJson(data);
-    dataFile.write(resultDataTxt+  '\r\n');
-    dataJsonFile.write(resultDataJson+  '\r\n');
+    const resultDataJson = readJsonFile(data);
+    dataFile.write(resultDataJson+  '\r\n');
 });
 
 console.log('------ Statistiques ------- ');
