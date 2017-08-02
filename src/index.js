@@ -4,7 +4,7 @@ const path = require('path');
 //Config
 const dataDirectory = path.join(__dirname, '..', 'data');
 const logDirectory = path.join(__dirname, '..', 'output');
-const jsonFormated = true;
+const jsonFormated = false;
 
 // Write File
 
@@ -80,6 +80,33 @@ function closeWriters() {
     });
 }
 
+const filterCstKeys = ['id', 'href', 'createdAt', 'modifiedAt'];
+const dataFile = fs.createWriteStream(path.join(logDirectory, 'dataFile.txt'));
+
+
+// Read Json File
+function readJsonFile(data) {
+    // console.log('line : ', Object.keys(line));
+    console.log('* Read  : ', data.fullName, '(', data.email, ')');
+    const identity = data.fullName + ';' + data.username;
+    // console.log('customData : ', line.customData);
+    const cstData = data.customData;
+    // console.log('line : ', Object.keys(cstData));
+    const cstKeys = Object.keys(cstData);
+    const cstLines = cstKeys
+        .filter(key => !filterCstKeys.some(elt => elt === key))
+        .map(key => {
+            const cstValue = cstData[key];
+            const cstLine = key + ';' + (Array.isArray(cstValue) ? cstValue.join(',') : cstValue);
+            return cstLine;
+        }).join(';');
+    // logger.write(identity + ';' + cstLines + '\n');
+    // Ne sert à rien dans ton cas, juste renvoie les nouvelles valeur dans la variable results        return cstLines;
+    return identity+';'+cstLines;
+}
+
+
+
 
 // Read All File in the directory Data
 dataFiles.forEach(file => {
@@ -93,9 +120,11 @@ dataFiles.forEach(file => {
         file.write(line);
         stats[key] = (stats[key] | 0) + 1;
     });
-    console.log('------ Statistiques ------- ');
-    console.log(JSON.stringify(stats, null, ' '))
+    const resultDataJson = readJsonFile(data);
+    dataFile.write(resultDataJson+  '\r\n');
 });
 
+console.log('------ Statistiques ------- ');
+console.log(JSON.stringify(stats, null, ' '));
 closeWriters();
 
