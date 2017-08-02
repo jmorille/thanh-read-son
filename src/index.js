@@ -25,10 +25,8 @@ function readJsonFileAsJsonFormat(data) {
                 roles: []
             }
         },
-	
-	user_metadata: {
-            companies: {
-        //        data.companies         },
+        user_metadata: {
+            companies: data.customData.companies
         }
     };
 
