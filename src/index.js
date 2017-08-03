@@ -39,7 +39,7 @@ function readJsonFileAsJsonFormat(data) {
         const dataKey = key + '_roles';
         if (data.customData[dataKey]) {
             const obj = JSON.parse(JSON.stringify(result));
-            obj.app_metadata.authorisation.roles = data.customData[dataKey];
+            obj.app_metadata.authorization.roles = data.customData[dataKey];
 	    // obj.user_metadata.companies = data.customData[dataKey];
             acc[key] = obj;
         }
