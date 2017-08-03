@@ -21,7 +21,7 @@ function readJsonFileAsJsonFormat(data) {
         nickname: data.username.slice(0, data.username.indexOf('@')),
         name: data.surname,
         app_metadata: {
-            authorisation: {
+            authorization: {
                 roles: []
             }
         },
